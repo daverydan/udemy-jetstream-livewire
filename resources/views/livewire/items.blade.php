@@ -3,11 +3,19 @@
         Items
     </div>
 
-    @php
-        $theads = ['ID', 'Name', 'Price', 'Status', 'Action'];
-    @endphp
-
     <div class="mt-6">
+        <div class="flex justify-between">
+            <div></div>
+            <div class="mr-2">
+                <label for="active">
+                    <input wire:model="active" type="checkbox" id="active" class="mr-1 leading-tight"> Active Only
+                </label>
+            </div>
+        </div>
+
+        @php
+            $theads = ['ID', 'Name', 'Price', 'Status', 'Action'];
+        @endphp
         <table class="table-auto w-full">
             <thead>
                 @foreach ($theads as $th)
