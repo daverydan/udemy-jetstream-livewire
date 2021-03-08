@@ -19,6 +19,9 @@
 
         @php
             $theads = ['ID', 'Name', 'Price', 'Status', 'Action'];
+            if ($active) {
+                $theads = ['ID', 'Name', 'Price', 'Action'];
+            }
         @endphp
         <table class="table-auto w-full">
             <thead>
@@ -34,7 +37,9 @@
                         <th class="border px-4 py-2">{{ $item->id }}</th>
                         <th class="border px-4 py-2">{{ $item->name }}</th>
                         <th class="border px-4 py-2">{{ number_format($item->price, 2) }}</th>
-                        <th class="border px-4 py-2">{{ $item->status ? 'Active' : 'Not Active' }}</th>
+                        @if (!$active)
+                            <th class="border px-4 py-2">{{ $item->status ? 'Active' : 'Not Active' }}</th>
+                        @endif
                         <th class="border px-4 py-2">Edit | Delete</th>
                     </tr>
                 @endforeach
