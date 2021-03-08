@@ -7,7 +7,9 @@
 
     <div class="mt-6">
         <div class="flex justify-between">
-            <div></div>
+            <div>
+                <input wire:model.debounce.500ms="search" type="search" placeholder="Search" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focud:shadow-outline">
+            </div>
             <div class="mr-2">
                 <label for="active">
                     <input wire:model="active" type="checkbox" id="active" class="mr-1 leading-tight"> Active Only
