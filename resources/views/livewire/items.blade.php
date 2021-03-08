@@ -1,0 +1,3 @@
+<div>
+    Livewire Items
+</div>
