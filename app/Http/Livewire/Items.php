@@ -17,10 +17,10 @@ class Items extends Component
         $items = Item::where('user_id', auth()->user()->id)
             ->when($this->active, function ($query) {
                 return $query->active();
-            })
-            ->paginate(10);
-
-        return view('livewire.items', compact('items'));
+            });
+        $query = $items->toSql();
+        $items = $items->paginate(10);
+        return view('livewire.items', compact('items', 'query'));
     }
 
     public function updatingActive()

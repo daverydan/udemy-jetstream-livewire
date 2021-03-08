@@ -1,7 +1,9 @@
 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-    <div class="mt-8 text-2x1">
+    <h1 class="mt-8 text-xl font-bold">
         Items
-    </div>
+    </h1>
+
+    <p class="mt-4 text-blue-600">{{ $query }}</p>
 
     <div class="mt-6">
         <div class="flex justify-between">
