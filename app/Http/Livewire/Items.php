@@ -10,11 +10,13 @@ class Items extends Component
 {
     use WithPagination;
 
-    public $active, $search;
+    public $active, $search, $sortBy = 'id', $sortAsc = true;
 
     protected $queryString = [
         'active' => ['except' => false],
         'search' => ['except' => false],
+        'sortBy' => ['except' => 'id'],
+        'sortAsc' => ['except' => true],
     ];
 
     public function render()
@@ -28,7 +30,8 @@ class Items extends Component
             })
             ->when($this->active, function ($query) {
                 return $query->active();
-            });
+            })
+            ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC');
         $query = $items->toSql();
         $items = $items->paginate(10);
         return view('livewire.items', compact('items', 'query'));
@@ -42,5 +45,13 @@ class Items extends Component
     public function updatingSearch()
     {
         $this->resetPage();;
+    }
+
+    public function sortBy($field)
+    {
+        if ($field == $this->sortBy) {
+            $this->sortAsc = !$this->sortAsc;
+        }
+        $this->sortBy = $field;
     }
 }
