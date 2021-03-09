@@ -10,10 +10,12 @@ class Items extends Component
 {
     use WithPagination;
 
+    public $item;
     public $active;
     public $search;
     public $sortBy = 'id';
     public $sortAsc = true;
+    public $confirmingItemAdd = false;
     public $confirmingItemDeletion = false;
 
     protected $queryString = [
@@ -21,6 +23,12 @@ class Items extends Component
         'search' => ['except' => false],
         'sortBy' => ['except' => 'id'],
         'sortAsc' => ['except' => true],
+    ];
+
+    protected $rules = [
+        'item.name' => 'required|string|min:4',
+        'item.price' => 'required|numeric|between:1,100',
+        'item.status' => 'boolean',
     ];
 
     public function render()
@@ -68,5 +76,24 @@ class Items extends Component
     {
         $item->delete();
         $this->confirmingItemDeletion = false;
+    }
+
+    public function confirmItemAdd()
+    {
+        $this->reset(['item']);
+        $this->confirmingItemAdd = true;
+    }
+
+    public function saveItem()
+    {
+        $this->validate();
+
+        auth()->user()->items()->create([
+            'name' => $this->item['name'],
+            'price' => $this->item['price'],
+            'status' => $this->item['status'] ?? 0,
+        ]);
+
+        $this->confirmingItemAdd = false;
     }
 }

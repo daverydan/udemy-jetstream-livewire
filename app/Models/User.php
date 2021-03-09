@@ -59,13 +59,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    // davery
-    /**
-     * Get all of the items for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function items(): HasMany
+    public function items()
     {
         return $this->hasMany(Item::class);
     }
